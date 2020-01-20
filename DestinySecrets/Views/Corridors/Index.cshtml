@@ -1,0 +1,14 @@
+﻿@model List<DestinySecrets.Corridors.Models.Hexagon>
+@{
+    ViewData["Title"] = "Corridors of Time";
+}
+@foreach (var hexagon in @Model)
+{
+    <div class="hex-row">
+        <div class="hex">
+            <div class="top"></div>
+            <div class="middle">@hexagon.Value</div>
+            <div class="bottom"></div>
+        </div>
+    </div>
+}
