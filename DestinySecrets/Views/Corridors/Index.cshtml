@@ -2,13 +2,30 @@
 @{
     ViewData["Title"] = "Corridors of Time";
 }
+
+
+
 @foreach (var hexagon in @Model)
 {
-    <div class="hex-row">
-        <div class="hex">
-            <div class="top"></div>
-            <div class="middle">@hexagon.Value</div>
-            <div class="bottom"></div>
+    <div class="row">
+        <div class="col hex">
+            @hexagon.Name (@hexagon.Value) <br />
+            @foreach (var node in hexagon.Nodes)
+            {
+                <i>@node.Value</i> <i>@node.HasOpenWall</i> <br />
+            }
         </div>
+
+        @foreach (var connectedHexagon in hexagon.ConnectedTo)
+        {
+            <div class=" col hex">
+                @connectedHexagon.Name (@connectedHexagon.Value) <br />
+                @foreach (var node in connectedHexagon.Nodes)
+                {
+                    <i>@node.Value</i> <i>@node.HasOpenWall</i><br />
+                }
+            </div>
+        }
     </div>
 }
+
