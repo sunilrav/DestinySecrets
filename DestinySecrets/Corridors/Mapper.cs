@@ -1,23 +1,26 @@
 ﻿using System.Collections.Generic;
 using DestinySecrets.Corridors.Models;
+using DestinySecrets.Helpers;
 
 namespace DestinySecrets.Corridors
 {
     public static class Mapper
     {
-        public static void Build(List<Hexagon> hexagons)
+        public static void BuildTree(List<TreeNode<Hexagon>> treeNodes)
         {
-            foreach (var hexagon1 in hexagons)
-            {
-                hexagon1.ConnectedTo = new List<Hexagon>();
-                foreach (var hexagon2 in hexagons)
+            var startNode = treeNodes[0];
+            foreach (var treeNode1 in treeNodes)
+            { 
+                foreach (var treeNode2 in treeNodes)
                 {
-                    if(hexagon1 == hexagon2)
+                    if (treeNode1 == treeNode2)
                         continue;
 
-                    var connected = IsConnected(hexagon1, hexagon2);
-                    if (connected && !AlreadyConnected(hexagon1, hexagon2))
-                        hexagon1.ConnectedTo.Add(hexagon2);
+                    var connected = IsConnected(treeNode1.Value, treeNode2.Value);
+                    if (connected && !AlreadyConnected(treeNode1.Value, treeNode2.Value))
+                    {
+                        treeNode1.AddChild(treeNode2.Value);
+                    }
                 }
             }
         }

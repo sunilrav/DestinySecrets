@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DestinySecrets.Corridors.Models;
+using DestinySecrets.Helpers;
 using Newtonsoft.Json;
 
 namespace DestinySecrets.Corridors
 {
     public static class Formatter
     {
-        public static List<Hexagon> FormatHexagons(List<string> jsons)
+
+        public static List<TreeNode<Hexagon>> FormatTreeNodes(List<string> jsons)
         {
             var count = 1;
-            var hexagons = new List<Hexagon>();
+            var treeNodes = new List<TreeNode<Hexagon>>();
             foreach (var json in jsons)
             {
                 var pattern = JsonConvert.DeserializeObject<Pattern>(json);
@@ -23,11 +25,11 @@ namespace DestinySecrets.Corridors
                     IsEdge = IsEdgeRoot(nodes)
                 };
 
-                hexagons.Add(hexagon);
+                treeNodes.Add(new TreeNode<Hexagon>(hexagon));
                 count++;
             }
 
-            return hexagons;
+            return treeNodes;
         }
 
         private static List<Node> FormatNodes(Pattern pattern)

@@ -1,0 +1,9 @@
+﻿@model List<DestinySecrets.Corridors.Models.Hexagon>
+@{
+    ViewData["Title"] = "Corridors of Time";
+}
+
+@foreach (var hexagon in @Model)
+{
+    <p>@hexagon.Name (@hexagon.Value)</p>
+}

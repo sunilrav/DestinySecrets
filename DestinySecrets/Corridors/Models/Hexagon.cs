@@ -10,6 +10,7 @@ namespace DestinySecrets.Corridors.Models
         public bool IsEdge { get; set; }
 
         public List<Hexagon> ConnectedTo { get; set; }
+        public Hexagon Parent { get; set; }
     }
 
     public class Node
