@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DestinySecrets.Corridors.Models;
 using DestinySecrets.Helpers;
 
@@ -17,7 +18,7 @@ namespace DestinySecrets.Corridors
                         continue;
 
                     var connected = IsConnected(treeNode1.Value, treeNode2.Value);
-                    if (connected && !AlreadyConnected(treeNode1.Value, treeNode2.Value))
+                    if (connected && !AlreadyConnected(treeNode1, treeNode2))
                     {
                         treeNode1.AddChild(treeNode2.Value);
                     }
@@ -25,22 +26,13 @@ namespace DestinySecrets.Corridors
             }
         }
 
-        private static bool AlreadyConnected(Hexagon hexagon1, Hexagon hexagon2)
+        private static bool AlreadyConnected(TreeNode<Hexagon> treeNode1, TreeNode<Hexagon> treeNode2)
         {
-            if (hexagon2.ConnectedTo == null)
-                return false;
+            if (treeNode1.Children.FirstOrDefault(x => x.Value == treeNode2.Value) != null)
+                return true;
 
-            foreach (var hex1Connected in hexagon1.ConnectedTo)
-            {
-                if (hexagon2 == hex1Connected)
-                    return true;
-            }
-
-            foreach (var hex2Connected in hexagon2.ConnectedTo)
-            {
-                if (hexagon1 == hex2Connected)
-                    return true;
-            }
+            if (treeNode2.Children.FirstOrDefault(x => x.Value == treeNode1.Value) != null)
+                return true;
 
             return false;
         }
