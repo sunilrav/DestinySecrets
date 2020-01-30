@@ -29,17 +29,14 @@ namespace DestinySecrets.Helpers
             get { return _children.AsReadOnly(); }
         }
 
-        public TreeNode<T> AddChild(T value)
+        public TreeNode<T> AddChild(TreeNode<T> value)
         {
-            var node = new TreeNode<T>(value) { Parent = this };
-            _children.Add(node);
-            return node;
+
+            Parent = this;
+            _children.Add(value);
+            return value;
         }
 
-        public TreeNode<T>[] AddChildren(params T[] values)
-        {
-            return values.Select(AddChild).ToArray();
-        }
 
         public bool RemoveChild(TreeNode<T> node)
         {

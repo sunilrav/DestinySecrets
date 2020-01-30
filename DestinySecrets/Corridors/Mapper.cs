@@ -20,7 +20,7 @@ namespace DestinySecrets.Corridors
                     var connected = IsConnected(treeNode1.Value, treeNode2.Value);
                     if (connected && !AlreadyConnected(treeNode1, treeNode2))
                     {
-                        treeNode1.AddChild(treeNode2.Value);
+                        treeNode1.AddChild(treeNode2);
                     }
                 }
             }
