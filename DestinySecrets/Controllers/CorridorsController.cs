@@ -17,7 +17,16 @@ namespace DestinySecrets.Controllers
 
             Mapper.BuildTree(treeNodes);
 
-            return View(treeNodes);
+            var output = string.Empty;
+            var edgeNode = treeNodes.First(x => x.Value.IsEdge);
+            edgeNode.Traverse(x => output += Draw(x.Value));
+
+            return View("Index", output);
+        }
+
+        private string Draw(string value)
+        {
+            return $"<div>{value}</div>";
         }
 
         public IActionResult Path()
@@ -27,11 +36,7 @@ namespace DestinySecrets.Controllers
 
             Mapper.BuildTree(treeNodes);
 
-            var path = new List<Hexagon>();
-            var edgeNode = treeNodes.First(x => x.Value.IsEdge);
-            edgeNode.Traverse(x => path.Add(x));
-            
-            return View(path);
+            return View(treeNodes);
         }
     }
 }

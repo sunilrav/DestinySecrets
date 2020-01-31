@@ -1,9 +1,28 @@
-﻿@model List<DestinySecrets.Corridors.Models.Hexagon>
+﻿@model List<DestinySecrets.Helpers.TreeNode<DestinySecrets.Corridors.Models.Hexagon>>
 @{
     ViewData["Title"] = "Corridors of Time";
 }
 
-@foreach (var hexagon in @Model)
+@foreach (var treeNode in @Model)
 {
-    <p>@hexagon.Name (@hexagon.Value)</p>
+    <div class="row">
+        <div class="col hex">
+            @treeNode.Value.Name (@treeNode.Value.Value) <br />
+            @foreach (var node in treeNode.Value.Nodes)
+            {
+                <i>@node.Value</i> <i>@node.HasOpenWall</i> <br />
+            }
+        </div>
+
+        @foreach (var connectedTreeNode in treeNode.Children)
+        {
+            <div class=" col hex">
+                @connectedTreeNode.Value.Name (@connectedTreeNode.Value.Value) <br />
+                @foreach (var node in connectedTreeNode.Value.Nodes)
+                {
+                    <i>@node.Value</i> <i>@node.HasOpenWall</i><br />
+                }
+            </div>
+        }
+    </div>
 }
